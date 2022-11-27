@@ -38,7 +38,7 @@ class UserItemViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: UserDetails) {
         binding.apply {
-            binding.tvUserId.text = item.id.toString()
+            binding.tvUserId.text = item.name
 
             Glide.with(itemView)
                 .load(item.imageUrl)
