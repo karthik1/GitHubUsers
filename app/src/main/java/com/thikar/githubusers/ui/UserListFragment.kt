@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UserListFragment : Fragment(R.layout.fragment_list) {
 
-    private val viewModel: ListViewModel by viewModels()
+    private val viewModel: UserListViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
