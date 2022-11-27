@@ -1,13 +1,11 @@
 package com.thikar.githubusers.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thikar.githubusers.R
@@ -59,23 +57,34 @@ class FollowersListFragment : Fragment(R.layout.fragment_list) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.followersList.collect {
                     val result = it ?: return@collect
+                    when (result) {
+                        is Resource.Loading -> {
+                            progressbar.isVisible = true
+                            textViewInstructions.isVisible = false
+                        }
 
-                    if (result is Resource.Loading) {
-                        progressbar.isVisible = true
-                        textViewInstructions.isVisible = false
-                    } else if (result is Resource.Success){
-                        val list = result.data
-                        listAdapter.submitList(list)
-                        recyclerView.visibility = View.VISIBLE
-                        textViewInstructions.visibility = View.GONE
-                        progressbar.visibility = View.GONE
-                        textViewError.visibility = View.GONE
-                        buttonRetry.visibility = View.GONE
-                    } else{
-                        recyclerView.isVisible = false
-                        progressbar.isVisible = false
-                        textViewError.isVisible = true
-                        buttonRetry.isVisible = true
+                        is Resource.Success -> {
+
+                            val list = result.data
+                            progressbar.visibility = View.GONE
+
+                            if (list!!.isNotEmpty()) {
+                                listAdapter.submitList(list)
+                                recyclerView.visibility = View.VISIBLE
+                                textViewInstructions.visibility = View.GONE
+                                textViewError.visibility = View.GONE
+                                buttonRetry.visibility = View.GONE
+                            }else{
+                                textViewInstructions.isVisible = true
+                                textViewInstructions.text = resources.getString(R.string.no_results_found)
+                            }
+                        }
+                        is Resource.Error -> {
+                            recyclerView.isVisible = false
+                            progressbar.isVisible = false
+                            textViewError.isVisible = true
+                            buttonRetry.isVisible = true
+                        }
                     }
                 }
             }
@@ -87,9 +96,12 @@ class FollowersListFragment : Fragment(R.layout.fragment_list) {
                             textViewError.visibility = View.VISIBLE
                             buttonRetry.visibility = View.VISIBLE
 
-                            showSnackbar(getString(R.string.could_not_refresh,
-                                event.error.localizedMessage ?: getString(R.string.unknown_error_occurred)
-                            )
+                            showSnackbar(
+                                getString(
+                                    R.string.could_not_refresh,
+                                    event.error.localizedMessage
+                                        ?: getString(R.string.unknown_error_occurred)
+                                )
                             )
                         }
                     }

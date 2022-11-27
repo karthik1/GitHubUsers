@@ -61,22 +61,33 @@ class UserListFragment : Fragment(R.layout.fragment_list) {
                 viewModel.results.collect {
                     val result = it ?: return@collect
 
-                    if (result is Resource.Loading) {
-                        progressbar.isVisible = true
-                        textViewInstructions.isVisible = false
-                    } else if (result is Resource.Success){
-                        val list = result.data
-                        listAdapter.submitList(list)
-                        recyclerView.visibility = View.VISIBLE
-                        textViewInstructions.visibility = View.GONE
-                        progressbar.visibility = View.GONE
-                        textViewError.visibility = View.GONE
-                        buttonRetry.visibility = View.GONE
-                    } else{
-                        recyclerView.isVisible = false
-                        progressbar.isVisible = false
-                        textViewError.isVisible = true
-                        buttonRetry.isVisible = true
+                    when (result) {
+                        is Resource.Loading -> {
+                            progressbar.isVisible = true
+                            textViewInstructions.isVisible = false
+                        }
+
+                        is Resource.Success -> {
+                            val list = result.data
+                            progressbar.visibility = View.GONE
+
+                            if (list!!.isNotEmpty()) {
+                                listAdapter.submitList(list)
+                                recyclerView.visibility = View.VISIBLE
+                                textViewInstructions.visibility = View.GONE
+                                textViewError.visibility = View.GONE
+                                buttonRetry.visibility = View.GONE
+                            }else{
+                                textViewInstructions.isVisible = true
+                                textViewInstructions.text = resources.getString(R.string.no_results_found)
+                            }
+                        }
+                        is Resource.Error -> {
+                            recyclerView.isVisible = false
+                            progressbar.isVisible = false
+                            textViewError.isVisible = true
+                            buttonRetry.isVisible = true
+                        }
                     }
                 }
             }
