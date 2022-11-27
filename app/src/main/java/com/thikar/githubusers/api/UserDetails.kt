@@ -6,6 +6,9 @@ data class UserDetails(
 
     val id:Long,
 
+    @SerializedName("login")
+    val name:String,
+
     @SerializedName("avatar_url")
     val imageUrl:String,
 
