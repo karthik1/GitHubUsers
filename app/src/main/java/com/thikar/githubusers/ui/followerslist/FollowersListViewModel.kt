@@ -1,4 +1,4 @@
-package com.thikar.githubusers.ui
+package com.thikar.githubusers.ui.followerslist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

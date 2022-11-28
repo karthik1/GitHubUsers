@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/userListFragment"
-        android:name="com.thikar.githubusers.ui.UserListFragment"
+        android:name="com.thikar.githubusers.ui.userlist.UserListFragment"
         android:label="Github Users">
         <action
             android:id="@+id/action_userListFragment_to_followersListFragment"
@@ -18,6 +18,6 @@
     </fragment>
     <fragment
         android:id="@+id/followersListFragment"
-        android:name="com.thikar.githubusers.ui.FollowersListFragment"
+        android:name="com.thikar.githubusers.ui.followerslist.FollowersListFragment"
         android:label="Followers" />
 </navigation>

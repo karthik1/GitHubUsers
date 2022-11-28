@@ -1,4 +1,4 @@
-package com.thikar.githubusers.ui
+package com.thikar.githubusers.ui.userlist
 
 import android.os.Bundle
 import android.view.Menu
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.thikar.githubusers.R
 import com.thikar.githubusers.adapter.UserListAdapter
 import com.thikar.githubusers.databinding.FragmentListBinding
+import com.thikar.githubusers.ui.SharedViewModel
 import com.thikar.githubusers.util.Event
 import com.thikar.githubusers.util.Resource
 import com.thikar.githubusers.util.onQueryTextSubmit

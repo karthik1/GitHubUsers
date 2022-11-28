@@ -1,4 +1,4 @@
-package com.thikar.githubusers.ui
+package com.thikar.githubusers.ui.userlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,9 +25,8 @@ class UserListViewModel @Inject constructor(repository: UserRepository):ViewMode
     private val refreshTriggerChannel = Channel<Unit>()
     private val refreshTrigger = refreshTriggerChannel.receiveAsFlow()
 
-    val hasCurrentQuery = currentQuery.map { it != null }
-    var newQueryInProgress = false
-
+//    val hasCurrentQuery = currentQuery.map { it != null }
+//    var newQueryInProgress = false
 
     val results = refreshTrigger.flatMapLatest {
         currentQuery.value?.let {query ->
