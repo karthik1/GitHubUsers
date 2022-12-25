@@ -9,15 +9,15 @@ import org.junit.runner.RunWith
 import org.junit.Assert.*
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Instrumented test,execute on an Android device.
  *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * See [testing documentation](http:/m/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under test.
+        // Context of the app under ggl. lgl lgl glg g test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.thikar.githubusers", appContext.packageName)
     }
